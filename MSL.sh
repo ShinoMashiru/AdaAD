@@ -1,0 +1,3 @@
+python main.py --anormly_ratio 1.2 --num_epochs 2   --batch_size 128 --mode train   --dataset MSL  --data_path MSL   --channels 55   --win_size 100   --jitter_scale_ratio 1.1 --jitter_ratio 0.9 --max_seg 5 --λ 1.5
+
+python main.py --anormly_ratio 1.2 --num_epochs 2   --batch_size 128 --mode test   --dataset MSL  --data_path MSL   --channels 55   --win_size 100   --jitter_scale_ratio 1.1 --jitter_ratio 0.9 --max_seg 5 --λ 1.5
