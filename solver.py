@@ -91,7 +91,8 @@ class Solver(object):
                 z2= z2.transpose(1, 2).to(self.device)
                 # print('z1', z1.shape)
                 # print('z2', z2.shape)
-                restruct_z1,restruct_z2,attMat1,attMat2 = self.model(z1,z2)
+                restruct_z1,restruct_z2,attMat1,attMat2,P = self.model(z1,z2)
+                # print('p', P.shape)
 
                 resturct_loss1 = 0.0
                 resturct_loss2 = 0.0
@@ -103,14 +104,27 @@ class Solver(object):
                 resturct_loss=(resturct_loss1+resturct_loss2)/2
                 attn_kl_loss1 += (torch.mean(my_kl_loss(attMat1, attMat2.detach())) + torch.mean(my_kl_loss(attMat2.detach(),attMat1)))
                 attn_kl_loss2 += (torch.mean(my_kl_loss(attMat1.detach(), attMat2)) + torch.mean(my_kl_loss(attMat2, attMat1.detach())))
-                attn_loss=(attn_kl_loss1+attn_kl_loss2)/2
+                ####
+                #attn_loss=(attn_kl_loss1+attn_kl_loss2)/2
+                attn_loss = (attn_kl_loss1 - attn_kl_loss2) / 2
+                # attn_loss = (attn_kl_loss1) / 2
                 λ=self.λ
-                loss= λ*resturct_loss + attn_loss
+
+                #正则项
+                N = P.size(-1)
+                # trace_loss = 1.0-torch.einsum('bii->b', P).mean() / N
+                identity = torch.eye(self.win_size, device=P.device).unsqueeze(0).expand(self.batch_size, -1, -1)
+                Ploss = F.mse_loss(P, identity)*N
+
+                loss= λ*resturct_loss + attn_loss #+ 25*Ploss
 
                 if (i + 1) % 100 == 0:
                     speed = (time.time() - time_now) / iter_count
                     left_time = speed * ((self.num_epochs - epoch) * train_steps - i)
                     print('\tspeed: {:.4f}s/iter; left time: {:.4f}s; loss: {:.4f}'.format(speed, left_time,loss))
+                    #############
+                    print('\tloss1: {:.4f};loss2: {:.4f}'.format(attn_kl_loss1,attn_kl_loss2))
+
                     iter_count = 0
                     time_now = time.time()
 
@@ -127,7 +141,8 @@ class Solver(object):
     def test(self):
         self.model.load_state_dict(
             torch.load(
-                os.path.join(str(self.model_save_path), str(self.data_path) + '_checkpoint.pth')))
+                #os.path.join(str(self.model_save_path), str(self.data_path) + '_checkpoint.pth')))
+                os.path.join(str(self.model_save_path), str(self.dataset) + '_checkpoint.pth')))
         self.model.eval()
         temperature = 50 #乘以温度系数，防止KLscore计算softmax时分母出现过小值
         # (1) stastic on the train set
@@ -138,7 +153,8 @@ class Solver(object):
             z1,z2=DataTransform(input,self.jitter_scale_ratio,self.max_seg,self.jitter_ratio)
             z1 = z1.transpose(1, 2).to(self.device)
             z2 = z2.transpose(1, 2).to(self.device)
-            restruct_z1, restruct_z2, attMat1, attMat2 = self.model(z1, z2)
+            ###
+            restruct_z1, restruct_z2, attMat1, attMat2,P = self.model(z1, z2)
 
             KLscore = my_kl_loss(attMat1.detach(), attMat2.detach()) + my_kl_loss(attMat2.detach(), attMat1.detach()) * temperature
             metric = torch.softmax((KLscore), dim=-1)
@@ -156,7 +172,7 @@ class Solver(object):
             z1,z2=DataTransform(input,self.jitter_scale_ratio,self.max_seg,self.jitter_ratio)
             z1 = z1.transpose(1, 2).to(self.device)
             z2 = z2.transpose(1, 2).to(self.device)
-            restruct_z1, restruct_z2, attMat1, attMat2 = self.model(z1, z2)
+            restruct_z1, restruct_z2, attMat1, attMat2,P = self.model(z1, z2)
 
             KLscore = my_kl_loss(attMat1.detach(), attMat2.detach()) + my_kl_loss(attMat2.detach(), attMat1.detach()) * temperature
 
@@ -179,7 +195,7 @@ class Solver(object):
             z1,z2=DataTransform(input,self.jitter_scale_ratio,self.max_seg,self.jitter_ratio)
             z1 = z1.transpose(1, 2).to(self.device)
             z2 = z2.transpose(1, 2).to(self.device)
-            restruct_z1, restruct_z2, attMat1, attMat2 = self.model(z1, z2)
+            restruct_z1, restruct_z2, attMat1, attMat2,P = self.model(z1, z2)
 
             KLscore = my_kl_loss(attMat1.detach(), attMat2.detach()) + my_kl_loss(attMat2.detach(),attMat1.detach()) * temperature
             metric = torch.softmax(KLscore, dim=-1)
