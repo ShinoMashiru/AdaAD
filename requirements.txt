@@ -1,0 +1,15 @@
+arch==7.2.0
+datasets==4.8.4
+einops==0.8.2
+hurst==0.0.5
+matplotlib==3.8.4
+numpy==2.4.4
+pandas==3.0.2
+Pillow==12.2.0
+scikit_learn==1.8.0
+scipy==1.17.1
+statsmodels==0.14.4
+tensorflow==2.21.0
+torch==2.5.1
+tqdm==4.66.4
+tsfresh==0.0.post0.dev73+g71f68b9.dirty
