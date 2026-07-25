@@ -1,0 +1,17 @@
+name: adaad
+channels:
+  - defaults
+dependencies:
+  - python=3.12
+  - pytorch
+  - pytorch-cuda=12.4
+  - torchaudio
+  - torchvision
+  - pandas
+  - matplotlib
+  - tqdm
+  - scikit-learn
+  - ipykernel
+  - lightgbm
+  - statsmodels
+  - tsfresh
