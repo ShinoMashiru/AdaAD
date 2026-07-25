@@ -2,7 +2,7 @@ import torch
 import torch.nn as nn
 import numpy as np
 from attention import Attention,Transformer_encoder
-from ABC import ABC
+from AdaAD import AdaAD
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
@@ -58,7 +58,7 @@ class Solver(object):
         self.criterion = nn.MSELoss()
 
     def build_model(self):
-        self.model = ABC(self.channels)
+        self.model = AdaAD(self.channels)
         # self.model = self.model.float()
 
         if torch.cuda.is_available():

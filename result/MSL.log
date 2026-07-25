@@ -1,0 +1,52 @@
+
+
+
+2026-07-25 22:30:10
+================ Hyperparameters ===============
+anormly_ratio: 0.63
+batch_size: 256
+channels: 55
+data_path: MSL
+dataset: MSL
+gpu: 0
+index: 137
+jitter_ratio: 0.9
+jitter_scale_ratio: 1.1
+loss_fuc: MSE
+lr: 0.0001
+max_seg: 10
+mode: train
+model_save_path: checkpoints
+num_epochs: 5
+use_gpu: True
+use_multi_gpu: False
+win_size: 150
+¦Ë: 0.0
+====================  Train  ===================
+	speed: 0.7223s/iter; left time: 748.3137s; loss: 0.0000
+	loss1: 8.6276;loss2: 8.6276
+	speed: 0.4490s/iter; left time: 420.3058s; loss: 0.0000
+	loss1: 9.0238;loss2: 9.0238
+Epoch: 1, Cost time: 130.345s 
+	speed: 0.8516s/iter; left time: 688.9520s; loss: 0.0000
+	loss1: 9.0389;loss2: 9.0389
+	speed: 0.4495s/iter; left time: 318.7024s; loss: 0.0000
+	loss1: 9.0710;loss2: 9.0710
+Epoch: 2, Cost time: 130.519s 
+	speed: 0.8525s/iter; left time: 496.1773s; loss: 0.0000
+	loss1: 9.0477;loss2: 9.0477
+	speed: 0.4493s/iter; left time: 216.5592s; loss: 0.0000
+	loss1: 9.0383;loss2: 9.0383
+Epoch: 3, Cost time: 130.495s 
+	speed: 0.8412s/iter; left time: 298.6357s; loss: 0.0000
+	loss1: 8.9527;loss2: 8.9527
+	speed: 0.4496s/iter; left time: 114.6468s; loss: 0.0000
+	loss1: 8.9543;loss2: 8.9543
+Epoch: 4, Cost time: 129.455s 
+	speed: 0.8415s/iter; left time: 107.7139s; loss: 0.0000
+	loss1: 9.0007;loss2: 9.0007
+	speed: 0.4498s/iter; left time: 12.5956s; loss: 0.0000
+	loss1: 8.8889;loss2: 8.8889
+Epoch: 5, Cost time: 129.471s 
+Threshold : 0.35107436832191796
+Accuracy : 0.9915, Precision : 0.9684, Recall : 0.9795, F-score : 0.9739 
