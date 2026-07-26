@@ -135,9 +135,19 @@ The following table reports Precision, Recall, and F1-score from the paper.
 |:--:| 
 | *Overall comparison on five standard benchmark datasets. Best results are in bold and the second ones are underlined.* |
 
-|![Figure4](img/main_result2.png)|
-|:--:| 
-| *Comparison on NIPS-TS datasets. Best results are in bold and the second ones are underlined.* |
+<div align="center">
+  <img
+    src="./img/main_result2.png"
+    width="40%"
+    alt="Comparison on NIPS-TS datasets"
+  />
+
+  <br>
+
+  <em>
+    Comparison on NIPS-TS datasets. Best results are in bold and the second ones are underlined.
+  </em>
+</div>
 
 |![Figure5](img/main_result3.png)|
 |:--:| 
