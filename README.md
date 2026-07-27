@@ -56,7 +56,7 @@ cd AdaAD/
 ```
 
 **Step 2:** Download the required datasets and weights from the following links,unzip data in the `AdaAD/dataset` folder. 
-**Dataset download:** `<DATASET_DOWNLOAD_URL>`
+**Dataset download:** [Google Drive datasets](https://drive.google.com/drive/folders/1_qolFRkGNEr7Nfy3xZKThBxqdv1zvabe?usp=sharing)
 
 ```bash
 cd AdaAD/dataset
